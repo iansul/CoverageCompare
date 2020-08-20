@@ -12,16 +12,16 @@ namespace CoverageCompare
     {
         class Options
         {
-            [Option(HelpText ="Left side of comparison")]
+            [Option('l', "left", HelpText ="Left side of comparison", Required = true)]
             public CoverageFile Left { get; set; }
             
-            [Option(HelpText = "Rigth side of comparison")]
+            [Option('r', "right", HelpText = "Right side of comparison", Required = true)]
             public CoverageFile Right { get; set; }
 
-            [Option(HelpText = "Type of comparison")]
+            [Option('c', "comparison", HelpText = "Type of comparison", Required = true)]
             public CompareBy Comparison { get; set; }
 
-            [Option(HelpText = "Show items exclusive to container")]
+            [Option('s', "showexclusiveitems", HelpText = "Show items found in one container but not the other")]
             public bool ShowExclusiveItems { get; set; }
         }
         static void Main(string[] args)

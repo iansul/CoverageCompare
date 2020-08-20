@@ -18,55 +18,57 @@ namespace Models
         public CoverageFile(string filePath)
         {
             FilePath = filePath;
-            Load(false);
-        }
-
-        public void Load(bool loading)
-        {
             try
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(CoverageDSPriv));
-                using var fs = new FileStream(FilePath, FileMode.Open);
-                using var reader = XmlDictionaryReader.CreateTextReader(fs, new XmlDictionaryReaderQuotas());
-                CoverageDSPriv coverage = (CoverageDSPriv)xmlSerializer.Deserialize(reader);
-                Modules = coverage.Items.Where(i => i is CoverageDSPrivModule).Select(i => i as CoverageDSPrivModule);
-                Files = coverage.Items.Where(i => i is CoverageDSPrivSourceFileNames).Select(i => i as CoverageDSPrivSourceFileNames);
+                Load();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(loading || !e.Message.Contains("An XML declaration with an encoding is required for all non-UTF8 documents."))
+                if (!e.Message.Contains("An XML declaration with an encoding is required for all non-UTF8 documents."))
                 {
-                    throw new Exception("File format incorrect");
+                    throw;
                 }
-                string tempDir;
-                int maxTries = 10;
-                do
-                {
-                    tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-                }
-                while (Directory.Exists(tempDir) && maxTries-- > 0);
-                if (Directory.Exists(tempDir))
-                {
-                    throw new Exception("Unable to generate unique temp dir");
-                }
-                else
-                {
-                    Directory.CreateDirectory(tempDir);
-                    var tempFile = Path.Combine(tempDir, Path.GetFileName(FilePath));
-                    using var tempFs = new FileStream(tempFile, FileMode.Create);
-                    using var copyFs = new FileStream(FilePath, FileMode.Open);
-                    using var sr = new StreamReader(copyFs, true);
-                    using var sw = new StreamWriter(tempFs, sr.CurrentEncoding);
-                    sw.WriteLine($"<?xml version=\"1.0\" encoding=\"{sr.CurrentEncoding.BodyName}\"?>");
-                    while (!sr.EndOfStream)
-                    {
-                        var ln = sr.ReadLine();
-                        sw.WriteLine(ln);
-                    }
-                    FilePath = tempFile;
-                }
-                Load(true);
+                FilePath = CopyToTempFileAndIncludeXmlDeclaration(FilePath);
+                Load();
             }
+        }
+
+        private string CopyToTempFileAndIncludeXmlDeclaration(string fromPath)
+        {
+            string tempDir;
+            int maxTries = 10;
+            do
+            {
+                tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            }
+            while (Directory.Exists(tempDir) && maxTries-- > 0);
+            if (Directory.Exists(tempDir))
+            {
+                throw new Exception("Unable to generate unique temp dir");
+            }
+            Directory.CreateDirectory(tempDir);
+            var tempFile = Path.Combine(tempDir, Path.GetFileName(FilePath));
+            using var tempFs = new FileStream(tempFile, FileMode.Create);
+            using var copyFs = new FileStream(fromPath, FileMode.Open);
+            using var sr = new StreamReader(copyFs, true);
+            using var sw = new StreamWriter(tempFs, sr.CurrentEncoding);
+            sw.WriteLine($"<?xml version=\"1.0\" encoding=\"{sr.CurrentEncoding.BodyName}\"?>");
+            while (!sr.EndOfStream)
+            {
+                var ln = sr.ReadLine();
+                sw.WriteLine(ln);
+            }
+            return tempFile;
+        }
+
+        internal void Load()
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(CoverageDSPriv));
+            using var fs = new FileStream(FilePath, FileMode.Open);
+            using var reader = XmlDictionaryReader.CreateTextReader(fs, new XmlDictionaryReaderQuotas());
+            CoverageDSPriv coverage = (CoverageDSPriv)xmlSerializer.Deserialize(reader);
+            Modules = coverage.Items.Where(i => i is CoverageDSPrivModule).Select(i => i as CoverageDSPrivModule);
+            Files = coverage.Items.Where(i => i is CoverageDSPrivSourceFileNames).Select(i => i as CoverageDSPrivSourceFileNames);
         }
 
         public string FilePath { get; private set; }

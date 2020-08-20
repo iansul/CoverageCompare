@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoverageCompare", "CoverageCompare\CoverageCompare.csproj", "{DD594472-B7A0-404C-AD70-8B0846F13A36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoverageCompare", "CoverageCompare\CoverageCompare.csproj", "{DD594472-B7A0-404C-AD70-8B0846F13A36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{6D3D9BE8-65A7-4E4B-B54F-7327E89E7051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine", "Engine\Engine.csproj", "{6D3D9BE8-65A7-4E4B-B54F-7327E89E7051}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{C3068DDE-7F5B-4F7A-AB16-E5AA4A64C1E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{C3068DDE-7F5B-4F7A-AB16-E5AA4A64C1E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineTests", "EngineTests\EngineTests.csproj", "{6A74DFE8-33E3-43AE-855B-1443B7ECBA2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelsTests", "ModelsTests\ModelsTests.csproj", "{60C6516E-5CE4-416E-813B-4B0F77A3C014}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{C3068DDE-7F5B-4F7A-AB16-E5AA4A64C1E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3068DDE-7F5B-4F7A-AB16-E5AA4A64C1E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3068DDE-7F5B-4F7A-AB16-E5AA4A64C1E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A74DFE8-33E3-43AE-855B-1443B7ECBA2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A74DFE8-33E3-43AE-855B-1443B7ECBA2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A74DFE8-33E3-43AE-855B-1443B7ECBA2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A74DFE8-33E3-43AE-855B-1443B7ECBA2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60C6516E-5CE4-416E-813B-4B0F77A3C014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C6516E-5CE4-416E-813B-4B0F77A3C014}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C6516E-5CE4-416E-813B-4B0F77A3C014}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C6516E-5CE4-416E-813B-4B0F77A3C014}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

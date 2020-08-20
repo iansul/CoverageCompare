@@ -1,8 +1,7 @@
 {
   "profiles": {
     "CoverageCompare": {
-      "commandName": "Project",
-      "commandLineArgs": "--left \"C:\\Users\\iansul\\Downloads\\Dev_StaffHub_Service_20200812.13.release.any cpu.4481005.coveragexml\" --right \"C:\\Users\\iansul\\Downloads\\Dev_StaffHub_Service_20200813.16.release.any cpu.4487489.coveragexml\" --comparison BlocksCoveredPercentage"
+      "commandName": "Project"
     }
   }
 }
