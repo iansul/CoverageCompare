@@ -26,8 +26,9 @@ namespace Engine
             LeftComparables = leftComparables;
             RightComparables = rightComparables;
             ComparisonType = comparisonType;
-            leftInnerComparablesByName = leftComparables?.ToDictionary(ic => ic.Name);
-            rightInnerComparablesByName = rightComparables?.ToDictionary(ic => ic.Name);
+            // Seeing duplicate named comparables in these lists, for now, ensuring the list is distinct, by Name, before creating Dictionary.
+            leftInnerComparablesByName = leftComparables?.DistinctBy(ic => ic.Name).ToDictionary(ic => ic.Name);
+            rightInnerComparablesByName = rightComparables?.DistinctBy(ic => ic.Name).ToDictionary(ic => ic.Name);
         }
 
         public IEnumerable<ICoverageComparable> InnerComparablesExclusiveToLeft
